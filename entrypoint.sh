@@ -8,8 +8,11 @@ python3 manage.py check --database default
 
 # Run migrations
 echo "Running database migrations..."
-python3 manage.py makemigrations
-python3 manage.py migrate
+if [ "$DEBUG" = "True" ]; then
+    echo "Development mode: Creating migrations..."
+    python3 manage.py makemigrations --noinput || echo "No new migrations to create"
+fi
+python3 manage.py migrate --noinput
 
 # Collect static files
 echo "Collecting static files..."

@@ -1862,4 +1862,5 @@ class NotificationSound(models.Model):
     sound_enabled = models.BooleanField(default=False)
 
 
+# Add is_new_employee field to User model
 User.add_to_class("is_new_employee", models.BooleanField(default=False))
