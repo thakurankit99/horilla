@@ -132,14 +132,19 @@ def block_unblock_disciplinary():
     return
 
 
+import os
+
 if not any(
     cmd in sys.argv
     for cmd in ["makemigrations", "migrate", "compilemessages", "flush", "shell"]
-):
+) and os.environ.get('DISABLE_SCHEDULER') != 'true':
     """
     Initializes and starts background tasks using APScheduler when the server is running.
     """
-    scheduler = BackgroundScheduler()
-    scheduler.add_job(update_experience, "interval", hours=4)
-    scheduler.add_job(block_unblock_disciplinary, "interval", seconds=25)
-    scheduler.start()
+    try:
+        scheduler = BackgroundScheduler()
+        scheduler.add_job(update_experience, "interval", hours=4)
+        scheduler.add_job(block_unblock_disciplinary, "interval", seconds=25)
+        scheduler.start()
+    except Exception as e:
+        print(f"Failed to start employee scheduler: {e}")

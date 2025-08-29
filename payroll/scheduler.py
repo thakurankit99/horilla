@@ -138,11 +138,16 @@ def auto_payslip_generate():
                 generate_payslip(date=date.today(), companies=companies, all=False)
 
 
+import os
+
 if not any(
     cmd in sys.argv
     for cmd in ["makemigrations", "migrate", "compilemessages", "flush", "shell"]
-):
-    scheduler = BackgroundScheduler()
-    scheduler.add_job(expire_contract, "interval", hours=4)
-    scheduler.add_job(auto_payslip_generate, "interval", hours=3)
-    scheduler.start()
+) and os.environ.get('DISABLE_SCHEDULER') != 'true':
+    try:
+        scheduler = BackgroundScheduler()
+        scheduler.add_job(expire_contract, "interval", hours=4)
+        scheduler.add_job(auto_payslip_generate, "interval", hours=3)
+        scheduler.start()
+    except Exception as e:
+        print(f"Failed to start payroll scheduler: {e}")

@@ -37,11 +37,20 @@ def cyclic_feedback_creation():
     return
 
 
-scheduler = BackgroundScheduler()
-cron_trigger = CronTrigger(hour=8)
-grace_time_seconds = int(timedelta(days=1).total_seconds())
-scheduler.add_job(
-    cyclic_feedback_creation, cron_trigger, misfire_grace_time=grace_time_seconds
-)
+import os
+import sys
 
-scheduler.start()
+if not any(
+    cmd in sys.argv
+    for cmd in ["makemigrations", "migrate", "compilemessages", "flush", "shell"]
+) and os.environ.get('DISABLE_SCHEDULER') != 'true':
+    try:
+        scheduler = BackgroundScheduler()
+        cron_trigger = CronTrigger(hour=8)
+        grace_time_seconds = int(timedelta(days=1).total_seconds())
+        scheduler.add_job(
+            cyclic_feedback_creation, cron_trigger, misfire_grace_time=grace_time_seconds
+        )
+        scheduler.start()
+    except Exception as e:
+        print(f"Failed to start PMS scheduler: {e}")
