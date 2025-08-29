@@ -25,11 +25,17 @@ class PmsConfig(AppConfig):
             path("pms/", include("pms.urls")),
         )
         super().ready()
-        try:
-            from pms.signals import start_automation
-
-            start_automation()
-        except:
-            """
-            Migrations are not affected yet
-            """
+        
+        import os
+        import sys
+        
+        # Only start automation when not during migrations and scheduler is enabled
+        if not any(
+            cmd in sys.argv
+            for cmd in ["makemigrations", "migrate", "compilemessages", "flush", "shell"]
+        ) and os.environ.get('DISABLE_SCHEDULER') != 'true':
+            try:
+                from pms.signals import start_automation
+                start_automation()
+            except Exception as e:
+                print(f"Failed to start PMS automation: {e}")

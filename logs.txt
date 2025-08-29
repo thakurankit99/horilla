@@ -1,16 +1,45 @@
-Job "block_unblock_disciplinary (trigger: interval[0:00:25], next run at: 2025-08-30 02:15:14 IST)" raised an exception
+==> Starting service...
+No new migrations needed
+Applying migrations...
+Starting Horilla application...
+Waiting for database connection...
+     ==> Your service is live 🎉
+     ==> 
+     ==> ///////////////////////////////////////////////////////////
+     ==> 
+     ==> Available at your primary URL https://horilla-latest.onrender.com
+     ==> 
+     ==> ///////////////////////////////////////////////////////////
+Operations to perform:
+  Apply all migrations: admin, auditlog, auth, contenttypes, django_apscheduler, sessions
+Running migrations:
+  No migrations to apply.
 Traceback (most recent call last):
   File "/usr/local/lib/python3.10/site-packages/django/db/backends/utils.py", line 89, in _execute
     return self.cursor.execute(sql, params)
-psycopg2.errors.UndefinedTable: relation "employee_disciplinaryaction" does not exist
-LINE 1: ..., "employee_disciplinaryaction"."attachment" FROM "employee_...
+psycopg2.errors.UndefinedTable: relation "horilla_automations_mailautomation" does not exist
+LINE 1: ...illa_automations_mailautomation"."condition" FROM "horilla_a...
                                                              ^
 The above exception was the direct cause of the following exception:
 Traceback (most recent call last):
-  File "/usr/local/lib/python3.10/site-packages/apscheduler/executors/base.py", line 131, in run_job
-    retval = job.func(*job.args, **job.kwargs)
-  File "/app/employee/scheduler.py", line 30, in block_unblock_disciplinary
-    for dis in dis_action:
+  File "/app/manage.py", line 22, in <module>
+    main()
+  File "/app/manage.py", line 18, in main
+    execute_from_command_line(sys.argv)
+  File "/usr/local/lib/python3.10/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+    utility.execute()
+  File "/usr/local/lib/python3.10/site-packages/django/core/management/__init__.py", line 416, in execute
+    django.setup()
+  File "/usr/local/lib/python3.10/site-packages/django/__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "/usr/local/lib/python3.10/site-packages/django/apps/registry.py", line 124, in populate
+    app_config.ready()
+  File "/app/horilla_automations/apps.py", line 55, in ready
+    start_automation()
+  File "/app/horilla_automations/signals.py", line 271, in start_automation
+    track_previous_instance()
+  File "/app/horilla_automations/signals.py", line 239, in track_previous_instance
+    for automation in automations:
   File "/usr/local/lib/python3.10/site-packages/django/db/models/query.py", line 398, in __iter__
     self._fetch_all()
   File "/usr/local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
@@ -31,223 +60,13 @@ Traceback (most recent call last):
     raise dj_exc_value.with_traceback(traceback) from exc_value
   File "/usr/local/lib/python3.10/site-packages/django/db/backends/utils.py", line 89, in _execute
     return self.cursor.execute(sql, params)
-django.db.utils.ProgrammingError: relation "employee_disciplinaryaction" does not exist
-LINE 1: ..., "employee_disciplinaryaction"."attachment" FROM "employee_...
+django.db.utils.ProgrammingError: relation "horilla_automations_mailautomation" does not exist
+LINE 1: ...illa_automations_mailautomation"."condition" FROM "horilla_a...
                                                              ^
-Job "block_unblock_disciplinary (trigger: interval[0:00:25], next run at: 2025-08-30 02:15:14 IST)" raised an exception
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.10/site-packages/django/db/backends/utils.py", line 89, in _execute
-    return self.cursor.execute(sql, params)
-psycopg2.errors.UndefinedTable: relation "employee_disciplinaryaction" does not exist
-LINE 1: ..., "employee_disciplinaryaction"."attachment" FROM "employee_...
-                                                             ^
-The above exception was the direct cause of the following exception:
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.10/site-packages/apscheduler/executors/base.py", line 131, in run_job
-    retval = job.func(*job.args, **job.kwargs)
-  File "/app/employee/scheduler.py", line 30, in block_unblock_disciplinary
-    for dis in dis_action:
-  File "/usr/local/lib/python3.10/site-packages/django/db/models/query.py", line 398, in __iter__
-    self._fetch_all()
-  File "/usr/local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
-    self._result_cache = list(self._iterable_class(self))
-  File "/usr/local/lib/python3.10/site-packages/django/db/models/query.py", line 91, in __iter__
-    results = compiler.execute_sql(
-  File "/usr/local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1562, in execute_sql
-    cursor.execute(sql, params)
-  File "/usr/local/lib/python3.10/site-packages/django/db/backends/utils.py", line 102, in execute
-    return super().execute(sql, params)
-  File "/usr/local/lib/python3.10/site-packages/django/db/backends/utils.py", line 67, in execute
-    return self._execute_with_wrappers(
-  File "/usr/local/lib/python3.10/site-packages/django/db/backends/utils.py", line 80, in _execute_with_wrappers
-    return executor(sql, params, many, context)
-  File "/usr/local/lib/python3.10/site-packages/django/db/backends/utils.py", line 84, in _execute
-    with self.db.wrap_database_errors:
-  File "/usr/local/lib/python3.10/site-packages/django/db/utils.py", line 91, in __exit__
-    raise dj_exc_value.with_traceback(traceback) from exc_value
-  File "/usr/local/lib/python3.10/site-packages/django/db/backends/utils.py", line 89, in _execute
-    return self.cursor.execute(sql, params)
-django.db.utils.ProgrammingError: relation "employee_disciplinaryaction" does not exist
-LINE 1: ..., "employee_disciplinaryaction"."attachment" FROM "employee_...
-                                                             ^
-Job "leave_reset (trigger: interval[0:00:20], next run at: 2025-08-30 02:15:08 IST)" raised an exception
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.10/site-packages/django/db/backends/utils.py", line 89, in _execute
-    return self.cursor.execute(sql, params)
-psycopg2.errors.UndefinedTable: relation "leave_leavetype" does not exist
-LINE 1: ...ry_leave", "leave_leavetype"."company_id_id" FROM "leave_lea...
-                                                             ^
-The above exception was the direct cause of the following exception:
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.10/site-packages/apscheduler/executors/base.py", line 131, in run_job
-    retval = job.func(*job.args, **job.kwargs)
-  File "/app/leave/scheduler.py", line 17, in leave_reset
-    for leave_type in leave_types:
-  File "/usr/local/lib/python3.10/site-packages/django/db/models/query.py", line 398, in __iter__
-    self._fetch_all()
-  File "/usr/local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
-    self._result_cache = list(self._iterable_class(self))
-  File "/usr/local/lib/python3.10/site-packages/django/db/models/query.py", line 91, in __iter__
-    results = compiler.execute_sql(
-  File "/usr/local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1562, in execute_sql
-    cursor.execute(sql, params)
-  File "/usr/local/lib/python3.10/site-packages/django/db/backends/utils.py", line 102, in execute
-    return super().execute(sql, params)
-  File "/usr/local/lib/python3.10/site-packages/django/db/backends/utils.py", line 67, in execute
-    return self._execute_with_wrappers(
-  File "/usr/local/lib/python3.10/site-packages/django/db/backends/utils.py", line 80, in _execute_with_wrappers
-    return executor(sql, params, many, context)
-  File "/usr/local/lib/python3.10/site-packages/django/db/backends/utils.py", line 84, in _execute
-    with self.db.wrap_database_errors:
-  File "/usr/local/lib/python3.10/site-packages/django/db/utils.py", line 91, in __exit__
-    raise dj_exc_value.with_traceback(traceback) from exc_value
-  File "/usr/local/lib/python3.10/site-packages/django/db/backends/utils.py", line 89, in _execute
-    return self.cursor.execute(sql, params)
-django.db.utils.ProgrammingError: relation "leave_leavetype" does not exist
-LINE 1: ...ry_leave", "leave_leavetype"."company_id_id" FROM "leave_lea...
-                                                             ^
-Job "block_unblock_disciplinary (trigger: interval[0:00:25], next run at: 2025-08-30 02:15:18 IST)" raised an exception
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.10/site-packages/django/db/backends/utils.py", line 89, in _execute
-    return self.cursor.execute(sql, params)
-psycopg2.errors.UndefinedTable: relation "employee_disciplinaryaction" does not exist
-LINE 1: ..., "employee_disciplinaryaction"."attachment" FROM "employee_...
-                                                             ^
-The above exception was the direct cause of the following exception:
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.10/site-packages/apscheduler/executors/base.py", line 131, in run_job
-    retval = job.func(*job.args, **job.kwargs)
-  File "/app/employee/scheduler.py", line 30, in block_unblock_disciplinary
-    for dis in dis_action:
-  File "/usr/local/lib/python3.10/site-packages/django/db/models/query.py", line 398, in __iter__
-    self._fetch_all()
-  File "/usr/local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
-    self._result_cache = list(self._iterable_class(self))
-  File "/usr/local/lib/python3.10/site-packages/django/db/models/query.py", line 91, in __iter__
-    results = compiler.execute_sql(
-  File "/usr/local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1562, in execute_sql
-    cursor.execute(sql, params)
-  File "/usr/local/lib/python3.10/site-packages/django/db/backends/utils.py", line 102, in execute
-    return super().execute(sql, params)
-  File "/usr/local/lib/python3.10/site-packages/django/db/backends/utils.py", line 67, in execute
-    return self._execute_with_wrappers(
-  File "/usr/local/lib/python3.10/site-packages/django/db/backends/utils.py", line 80, in _execute_with_wrappers
-    return executor(sql, params, many, context)
-  File "/usr/local/lib/python3.10/site-packages/django/db/backends/utils.py", line 84, in _execute
-    with self.db.wrap_database_errors:
-  File "/usr/local/lib/python3.10/site-packages/django/db/utils.py", line 91, in __exit__
-    raise dj_exc_value.with_traceback(traceback) from exc_value
-  File "/usr/local/lib/python3.10/site-packages/django/db/backends/utils.py", line 89, in _execute
-    return self.cursor.execute(sql, params)
-django.db.utils.ProgrammingError: relation "employee_disciplinaryaction" does not exist
-LINE 1: ..., "employee_disciplinaryaction"."attachment" FROM "employee_...
-                                                             ^
-Job "leave_reset (trigger: interval[0:00:20], next run at: 2025-08-30 02:15:19 IST)" raised an exception
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.10/site-packages/django/db/backends/utils.py", line 89, in _execute
-    return self.cursor.execute(sql, params)
-psycopg2.errors.UndefinedTable: relation "leave_leavetype" does not exist
-LINE 1: ...ry_leave", "leave_leavetype"."company_id_id" FROM "leave_lea...
-                                                             ^
-The above exception was the direct cause of the following exception:
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.10/site-packages/apscheduler/executors/base.py", line 131, in run_job
-    retval = job.func(*job.args, **job.kwargs)
-  File "/app/leave/scheduler.py", line 17, in leave_reset
-    for leave_type in leave_types:
-  File "/usr/local/lib/python3.10/site-packages/django/db/models/query.py", line 398, in __iter__
-    self._fetch_all()
-  File "/usr/local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
-    self._result_cache = list(self._iterable_class(self))
-  File "/usr/local/lib/python3.10/site-packages/django/db/models/query.py", line 91, in __iter__
-    results = compiler.execute_sql(
-  File "/usr/local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1562, in execute_sql
-    cursor.execute(sql, params)
-  File "/usr/local/lib/python3.10/site-packages/django/db/backends/utils.py", line 102, in execute
-    return super().execute(sql, params)
-  File "/usr/local/lib/python3.10/site-packages/django/db/backends/utils.py", line 67, in execute
-    return self._execute_with_wrappers(
-  File "/usr/local/lib/python3.10/site-packages/django/db/backends/utils.py", line 80, in _execute_with_wrappers
-    return executor(sql, params, many, context)
-  File "/usr/local/lib/python3.10/site-packages/django/db/backends/utils.py", line 84, in _execute
-    with self.db.wrap_database_errors:
-  File "/usr/local/lib/python3.10/site-packages/django/db/utils.py", line 91, in __exit__
-    raise dj_exc_value.with_traceback(traceback) from exc_value
-  File "/usr/local/lib/python3.10/site-packages/django/db/backends/utils.py", line 89, in _execute
-    return self.cursor.execute(sql, params)
-django.db.utils.ProgrammingError: relation "leave_leavetype" does not exist
-LINE 1: ...ry_leave", "leave_leavetype"."company_id_id" FROM "leave_lea...
-                                                             ^
-Job "leave_reset (trigger: interval[0:00:20], next run at: 2025-08-30 02:15:19 IST)" raised an exception
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.10/site-packages/django/db/backends/utils.py", line 89, in _execute
-    return self.cursor.execute(sql, params)
-psycopg2.errors.UndefinedTable: relation "leave_leavetype" does not exist
-LINE 1: ...ry_leave", "leave_leavetype"."company_id_id" FROM "leave_lea...
-                                                             ^
-The above exception was the direct cause of the following exception:
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.10/site-packages/apscheduler/executors/base.py", line 131, in run_job
-    retval = job.func(*job.args, **job.kwargs)
-  File "/app/leave/scheduler.py", line 17, in leave_reset
-    for leave_type in leave_types:
-  File "/usr/local/lib/python3.10/site-packages/django/db/models/query.py", line 398, in __iter__
-    self._fetch_all()
-  File "/usr/local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
-    self._result_cache = list(self._iterable_class(self))
-  File "/usr/local/lib/python3.10/site-packages/django/db/models/query.py", line 91, in __iter__
-    results = compiler.execute_sql(
-  File "/usr/local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1562, in execute_sql
-    cursor.execute(sql, params)
-  File "/usr/local/lib/python3.10/site-packages/django/db/backends/utils.py", line 102, in execute
-    return super().execute(sql, params)
-  File "/usr/local/lib/python3.10/site-packages/django/db/backends/utils.py", line 67, in execute
-    return self._execute_with_wrappers(
-  File "/usr/local/lib/python3.10/site-packages/django/db/backends/utils.py", line 80, in _execute_with_wrappers
-    return executor(sql, params, many, context)
-  File "/usr/local/lib/python3.10/site-packages/django/db/backends/utils.py", line 84, in _execute
-    with self.db.wrap_database_errors:
-  File "/usr/local/lib/python3.10/site-packages/django/db/utils.py", line 91, in __exit__
-    raise dj_exc_value.with_traceback(traceback) from exc_value
-  File "/usr/local/lib/python3.10/site-packages/django/db/backends/utils.py", line 89, in _execute
-    return self.cursor.execute(sql, params)
-django.db.utils.ProgrammingError: relation "leave_leavetype" does not exist
-LINE 1: ...ry_leave", "leave_leavetype"."company_id_id" FROM "leave_lea...
-                                                             ^
-Job "leave_reset (trigger: interval[0:00:20], next run at: 2025-08-30 02:15:19 IST)" raised an exception
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.10/site-packages/django/db/backends/utils.py", line 89, in _execute
-    return self.cursor.execute(sql, params)
-psycopg2.errors.UndefinedTable: relation "leave_leavetype" does not exist
-LINE 1: ...ry_leave", "leave_leavetype"."company_id_id" FROM "leave_lea...
-                                                             ^
-The above exception was the direct cause of the following exception:
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.10/site-packages/apscheduler/executors/base.py", line 131, in run_job
-    retval = job.func(*job.args, **job.kwargs)
-  File "/app/leave/scheduler.py", line 17, in leave_reset
-    for leave_type in leave_types:
-  File "/usr/local/lib/python3.10/site-packages/django/db/models/query.py", line 398, in __iter__
-    self._fetch_all()
-  File "/usr/local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
-    self._result_cache = list(self._iterable_class(self))
-  File "/usr/local/lib/python3.10/site-packages/django/db/models/query.py", line 91, in __iter__
-    results = compiler.execute_sql(
-  File "/usr/local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1562, in execute_sql
-    cursor.execute(sql, params)
-  File "/usr/local/lib/python3.10/site-packages/django/db/backends/utils.py", line 102, in execute
-    return super().execute(sql, params)
-  File "/usr/local/lib/python3.10/site-packages/django/db/backends/utils.py", line 67, in execute
-    return self._execute_with_wrappers(
-  File "/usr/local/lib/python3.10/site-packages/django/db/backends/utils.py", line 80, in _execute_with_wrappers
-    return executor(sql, params, many, context)
-  File "/usr/local/lib/python3.10/site-packages/django/db/backends/utils.py", line 84, in _execute
-    with self.db.wrap_database_errors:
-  File "/usr/local/lib/python3.10/site-packages/django/db/utils.py", line 91, in __exit__
-    raise dj_exc_value.with_traceback(traceback) from exc_value
-  File "/usr/local/lib/python3.10/site-packages/django/db/backends/utils.py", line 89, in _execute
-    return self.cursor.execute(sql, params)
-django.db.utils.ProgrammingError: relation "leave_leavetype" does not exist
-LINE 1: ...ry_leave", "leave_leavetype"."company_id_id" FROM "leave_lea...
-                                                             ^
-[2025-08-29 20:45:01 +0000] [1] [INFO] Shutting down: Master
+     ==> No open ports detected, continuing to scan...
+  Your models in app(s): 'accessibility', 'asset', 'attendance', 'auth', 'base', 'biometric', 'employee', 'facedetection', 'geofencing', 'helpdesk', 'horilla_audit', 'horilla_automations', 'horilla_backup', 'horilla_documents', 'horilla_views', 'leave', 'notifications', 'offboarding', 'onboarding', 'payroll', 'pms', 'project', 'recruitment' have changes that are not yet reflected in a migration, and so won't be applied.
+  Run 'manage.py makemigrations' to make new migrations, and then re-run 'manage.py migrate' to apply them.
+     ==> Docs on specifying a port: https://render.com/docs/web-services#port-binding
+Running database migrations...
+Creating any new migrations...
+Verifying database setup...

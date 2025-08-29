@@ -26,13 +26,18 @@ class PayrollConfig(AppConfig):
         urlpatterns.append(
             path("payroll/", include("payroll.urls.urls")),
         )
-        try:
-            from payroll.scheduler import auto_payslip_generate
-
-            auto_payslip_generate()
-        except:
-            """
-            Migrations are not affected
-            """
+        import os
+        import sys
+        
+        # Only start scheduler when not during migrations and scheduler is enabled
+        if not any(
+            cmd in sys.argv
+            for cmd in ["makemigrations", "migrate", "compilemessages", "flush", "shell"]
+        ) and os.environ.get('DISABLE_SCHEDULER') != 'true':
+            try:
+                from payroll.scheduler import auto_payslip_generate
+                auto_payslip_generate()
+            except Exception as e:
+                print(f"Failed to start payroll scheduler: {e}")
 
         return ready

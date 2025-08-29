@@ -39,7 +39,7 @@ class HorillaAutomationConfig(AppConfig):
         model_choices.append(("pms.models.EmployeeKeyResult", "Employee Key Results"))
         model_choices[:] = list(set(model_choices))  # Update in-place
 
-        # Only start automation when running the server
+        # Only start automation when running the server and not during setup
         if not any(
             cmd in sys.argv
             for cmd in [
@@ -49,7 +49,9 @@ class HorillaAutomationConfig(AppConfig):
                 "flush",
                 "shell",
             ]
-        ):
-            from horilla_automations.signals import start_automation
-
-            start_automation()
+        ) and os.environ.get('DISABLE_SCHEDULER') != 'true':
+            try:
+                from horilla_automations.signals import start_automation
+                start_automation()
+            except Exception as e:
+                print(f"Failed to start automation system: {e}")

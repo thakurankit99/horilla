@@ -76,6 +76,25 @@ INSTALLED_APPS = [
     "payroll",
     "widget_tweaks",
     "django_apscheduler",
+    # Additional apps that have models
+    "accessibility",
+    "biometric",
+    "geofencing",
+    "helpdesk",
+    "horilla_audit",
+    "horilla_automations",
+    "horilla_backup",
+    "horilla_documents",
+    "horilla_views",
+    "offboarding",
+    "project",
+    "facedetection",
+    "horilla_widgets",
+    "horilla_crumbs",
+    "horilla_ldap",
+    "horilla_api",
+    "dynamic_fields",
+    "outlook_auth",
 ]
 APSCHEDULER_DATETIME_FORMAT = "N j, Y, f:s a"
 
