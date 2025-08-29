@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: horilla-app
+    env: docker
+    dockerfilePath: ./Dockerfile
+    plan: starter
+    region: oregon
+    branch: main
+    envVars:
+      - key: DEBUG
+        value: "False"
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DATABASE_URL
+        fromDatabase:
+          name: horilla-db
+          property: connectionString
+      - key: ALLOWED_HOSTS
+        value: "*.onrender.com"
+      - key: CSRF_TRUSTED_ORIGINS
+        value: "https://*.onrender.com"
+      - key: TIME_ZONE
+        value: "UTC"
+    buildCommand: ""
+    startCommand: "./entrypoint.sh"
+    healthCheckPath: /

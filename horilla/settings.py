@@ -41,7 +41,15 @@ SECRET_KEY = env("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env("DEBUG")
 
+# Allow Render.com domains and any custom domains
 ALLOWED_HOSTS = env("ALLOWED_HOSTS")
+if not DEBUG:
+    # Add Render.com domain pattern
+    ALLOWED_HOSTS.extend([
+        '.onrender.com',
+        '127.0.0.1',
+        'localhost'
+    ])
 
 # Application definition
 
@@ -185,6 +193,11 @@ MESSAGE_TAGS = {
 
 
 CSRF_TRUSTED_ORIGINS = env("CSRF_TRUSTED_ORIGINS")
+if not DEBUG:
+    # Add Render.com HTTPS origins
+    CSRF_TRUSTED_ORIGINS.extend([
+        'https://*.onrender.com',
+    ])
 
 LOGIN_URL = "/login"
 
@@ -243,3 +256,6 @@ if not DEBUG:
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+    
+    # Render.com specific settings
+    SECURE_REFERRER_POLICY = "same-origin"
